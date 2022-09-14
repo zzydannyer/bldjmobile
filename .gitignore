@@ -1,3 +1,5 @@
-/.hbuilderx
-/dist
-/node_modules
+dist
+node_modules
+.hbuilderx
+.idea
+.vscode

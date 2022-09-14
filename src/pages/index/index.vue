@@ -1,18 +1,24 @@
 <script setup lang="ts">
-import { ref, computed, onBeforeMount } from 'vue';
 import type { Ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/store/modules/user';
-import uniCard from '@/uni_modules/uni-card/components/uni-card/uni-card.vue'
 
 /**
  * pinia测试
  */
 const userStore = useUserStore();
-const user = computed(() => userStore.getUser);
+const { user, counter } = storeToRefs(userStore)
+const userInfo = computed(() => userStore.getUserInfo);
 const handleClick = () => {
 	userStore.login();
 	userStore.changeVal();
+	// userStore.$patch(state => {
+	// 	state.counter += 1
+	// })
 };
+const handleReset = () => {
+	userStore.$reset()
+}
 
 /**
  * uniapp内置icon测试
@@ -47,16 +53,56 @@ const formSubmit = (e: any) => {
 const formReset = (e: any) => {
 	console.log('清空数据')
 }
+/**
+ * 扩展组件uni-ui测试
+ */
+const popup = ref()
+const popOpen = () => {
+	popup.value.open('center')
+}
+const popClose = () => {
+	popup.value.close()
+}
+
+/**
+ * uni.showToast方法 
+ */
+const showToast = () => {
+	uni.showToast({
+		title: 'showToast',
+		icon: 'success',
+		duration: 850
+	});
+}
+
+const showModal = () => {
+	uni.showModal({
+		title: '提示',
+		content: '这是一个模态弹窗',
+		success(res) {
+			if (res.confirm) {
+				console.log('用户点击确定');
+			} else if (res.cancel) {
+				console.log('用户点击取消');
+			}
+		}
+	});
+}
 
 /**
  * uview不可用
+ * tailwind不可用
  */
+
 </script>
 
 <template>
 	<!-- pinia测试 -->
 	<view>{{ user }}</view>
-	<button @click="handleClick">点击</button>
+	<view>{{ counter }}</view>
+	<view>{{ userInfo }}</view>
+	<button @click="handleClick">点击+1</button>
+	<button @click="handleReset">重置</button>
 
 	<!-- uniapp内置icon测试 -->
 	<view class="item"
@@ -125,6 +171,22 @@ const formReset = (e: any) => {
 	<uni-card>
 		<text>这是一个基础卡片示例，内容较少，此示例展示了一个没有任何属性不带阴影的卡片。</text>
 	</uni-card>
+	<button @click="popOpen">打开弹窗</button>
+	<uni-popup ref="popup"
+			   type="dialog">
+		<uni-popup-message type="success"
+						   message="成功消息"
+						   :duration="2000">
+			<text>这是个Popup</text>
+		</uni-popup-message>
+		<button @click="popClose">关闭</button>
+	</uni-popup>
+
+	<!-- uni.showToast方法 -->
+	<button @click="showToast">showToast</button>
+
+	<!-- uni.showModal方法 -->
+	<button @click="showModal">showModal</button>
 </template>
 
 <style lang="scss" scoped>
