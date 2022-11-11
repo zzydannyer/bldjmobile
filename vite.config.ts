@@ -11,12 +11,14 @@ export default defineConfig({
     uni(),
     AutoImport({
       imports: ['vue', 'uni-app'],
-      dts: './auto-imports.d.ts', // 安装好依赖后，重新运行编译即可自动在根目录下生成此声明文件
+      dts: './auto-imports.d.ts',
     }),
   ],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
+      '@store': resolve(__dirname, 'src/store/modules'),
+      // '@img': resolve(__dirname, 'src/static/images'),
     },
   },
   css: {

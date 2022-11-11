@@ -45,7 +45,11 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-alpha-3050320220729001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-alpha-3050320220729001",
     "@dcloudio/uni-ui": "^1.4.20",
+    "@prequest/lock": "^1.5.2",
+    "@prequest/miniprogram": "^1.5.2",
+    "@prequest/miniprogram-addon": "^1.5.2",
     "pinia": "^2.0.22",
+    "pinia-plugin-persistedstate": "^2.3.0",
     "vue": "^3.2.37",
     "vue-i18n": "^9.1.9",
     "vuex": "^4.0.2"

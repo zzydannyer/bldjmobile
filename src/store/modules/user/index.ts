@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
+import { LoginStates } from './types'
+
 export const useUserStore = defineStore('user', {
-  state: () => ({
+  state: (): LoginStates => ({
     user: '测试用户',
     counter: 0,
+    token: '',
   }),
-
   getters: {
     getUserInfo: (state) => ({ id: 1, user: state.user }),
   },
